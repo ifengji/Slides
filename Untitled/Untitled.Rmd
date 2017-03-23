@@ -26,7 +26,7 @@ class: middle
 
 # Formula
 
-### ![SRMR](/fomula.png)
+### ![SRMR](https://github.com/ifengji/Slides/blob/master/Untitled/Untitled_files/fomula.png)
 ### Thus, the formula involves:
 
 * Getting the square of the scaled discrepancy between model implied and observed covariances, where the scaling makes the comparison more like comparing the correlation. E.g., imagine implied and observed correlations r = .2 and r = .3; this becomes (.2 - .3)^2 = .01
