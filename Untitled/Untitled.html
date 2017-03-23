@@ -31,7 +31,7 @@ class: middle
 
 # Formula
 
-### ![SRMR](/fomula.png)
+### ![SRMR](https://github.com/ifengji/Slides/blob/master/Untitled/Untitled_files/fomula.png)
 ### Thus, the formula involves:
 
 * Getting the square of the scaled discrepancy between model implied and observed covariances, where the scaling makes the comparison more like comparing the correlation. E.g., imagine implied and observed correlations r = .2 and r = .3; this becomes (.2 - .3)^2 = .01
@@ -63,7 +63,7 @@ obs &lt;- lavTech(fit, "sampstat")[[1]]$cov
 imp &lt;- unclass(fitted(fit)$cov)
 ```
 ---
-# Example in R - 3
+## Example in R - 3
 This is what they look like along with the absolute differences
 
 ```r
@@ -104,7 +104,7 @@ round(abs(obs - imp), 5)
 ```
 
 ---
-# Comparing manual calculation with the results of built-in function
+## Comparing manual calculation with the results of built-in function
 
 
 ```r
