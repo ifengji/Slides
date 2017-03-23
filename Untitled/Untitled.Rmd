@@ -1,0 +1,91 @@
+---
+title: "Fit Stats - RMR/SRMR"
+author: "Feng Ji"
+date: "2017/03/22"
+output:
+  xaringan::moon_reader:
+    css: zh-CN.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+# Definition
+Standardized Root Mean Square Residual (SRMR) 
+The SRMR is an absolute measure of fit and is defined as the standardized difference between the observed correlation and the predicted correlation.  
+
+It is a positively biased measure and that bias is greater for small N and for low df studies.  Because the SRMR is an absolute measure of fit, a value of zero indicates perfect fit.  
+
+The SRMR has no penalty for model complexity.  
+
+A value less than .08 is generally considered a good fit (Hu & Bentler, 1999).
+
+---
+class: middle
+
+# Formula
+
+### ![SRMR](/fomula.png)
+### Thus, the formula involves:
+
+* Getting the square of the scaled discrepancy between model implied and observed covariances, where the scaling makes the comparison more like comparing the correlation. E.g., imagine implied and observed correlations r = .2 and r = .3; this becomes (.2 - .3)^2 = .01
+
+* Getting the average of these discrepancies (i.e., dividing by p(p+1)/2p(p+1)/2; the number of sample moments (i.e., covariances plus variances; e.g., 3 variables = 6 moments [3 covariances and 3 variances)).
+* Squaring the average discrepancy obtained in step 2.
+
+So the metric of SRMR can broadly be considered an average (specifically the quadratic mean) difference between implied and observed correlations (albeit with particular forms of averaging, and using the variances as well).
+
+---
+# Example in R - 1
+We'll use personality `data (bfi)` from the psych package and run a cfa in `lavaan` (four items on a single factor) using the correlation matrix of the data as input.
+```{r tidy=FALSE, error=FALSE, warning=FALSE， message = FALSE}
+library(psych)
+library(lavaan)
+data(bfi)
+model <- "agree =~ A1 + A2 + A3 + A4"
+fit <- cfa(model, scale(bfi))
+
+```
+---
+
+# Example in R - 2
+We then extract the observed and model implied covariance matrices (which in this case are correlation matrices).
+```{r tidy=FALSE, error=FALSE, warning=FALSE}
+# get observed and implied covariance matrices
+obs <- lavTech(fit, "sampstat")[[1]]$cov
+imp <- unclass(fitted(fit)$cov)
+```
+---
+# Example in R - 3
+This is what they look like along with the absolute differences
+```{r tidy=FALSE, out.height=5}
+round(obs, 5); 
+round(imp, 5)
+# calculating absolute differences:
+round(abs(obs - imp), 5)
+```
+
+---
+# Comparing manual calculation with the results of built-in function
+
+```{r tidy=FALSE, error=FALSE, warning=FALSE}
+# extract diagonal and upper triangle cells
+lobs <-  obs[!lower.tri(obs)]
+limp <-  imp[!lower.tri(imp)]
+
+# compare "srmr" to manual calculation
+fitmeasures(fit)["srmr"]
+sqrt(mean((limp - lobs)^2))
+
+```
+
+
+
+
+---
+
+class: center, middle
+
+# Thanks
+Reference: stackexchange and (Hu & Bentler, 1999).
