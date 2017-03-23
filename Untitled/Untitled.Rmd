@@ -1,7 +1,7 @@
 ---
 title: "Fit Stats - RMR/SRMR"
 author: "Feng Ji"
-date: "2017/03/22"
+date: "2017/03/23"
 output:
   xaringan::moon_reader:
     css: zh-CN.css
@@ -26,7 +26,7 @@ class: middle
 
 # Formula
 
-### ![SRMR](https://github.com/ifengji/Slides/blob/master/Untitled/Untitled_files/fomula.png)
+### ![SRMR](https://ifengji.github.io/Slides/Untitled/fomula.png)
 ### Thus, the formula involves:
 
 * Getting the square of the scaled discrepancy between model implied and observed covariances, where the scaling makes the comparison more like comparing the correlation. E.g., imagine implied and observed correlations r = .2 and r = .3; this becomes (.2 - .3)^2 = .01
@@ -57,7 +57,7 @@ obs <- lavTech(fit, "sampstat")[[1]]$cov
 imp <- unclass(fitted(fit)$cov)
 ```
 ---
-# Example in R - 3
+## Example in R - 3
 This is what they look like along with the absolute differences
 ```{r tidy=FALSE, out.height=5}
 round(obs, 5); 
@@ -67,7 +67,7 @@ round(abs(obs - imp), 5)
 ```
 
 ---
-# Comparing manual calculation with the results of built-in function
+## Comparing manual calculation with the results of built-in function
 
 ```{r tidy=FALSE, error=FALSE, warning=FALSE}
 # extract diagonal and upper triangle cells
