@@ -55,7 +55,7 @@ obs <- lavTech(fit, "sampstat")[[1]]$cov
 imp <- unclass(fitted(fit)$cov)
 ```
 ---
-## Example in R - 3
+### Example in R - 3
 This is what they look like along with the absolute differences
 ```{r tidy=FALSE, out.height=5}
 round(obs, 5); 
